@@ -5,7 +5,7 @@
         @method("patch")
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input value="{{old('post->title')}}" class="form-control" id="title" name="title" placeholder="Title">
+            <input value="{{$post->title}}" class="form-control" id="title" name="title" placeholder="Title">
             @error('title')
             <p class="text-danger">{{$message}}</p>
             @enderror
@@ -46,8 +46,8 @@
                     <option
                         @foreach($post->tags as $postTag)
                             {{$postTag->id==$tag->id ? ' selected' : ''}}
-                            value="{{$tag->id}}">{{$tag->title}}
                         @endforeach
+                        value="{{$tag->id}}">{{$tag->title}}
                     </option>
                 @endforeach
             </select>
