@@ -11,30 +11,15 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
 
-// Первый дополнительный маршрут
-Route::get('/test', function () {
-    return 'Привет, мир!';
-});
-
-// Пример с изменением результата запроса
-Route::get('/example', function () {
-    return 'Это пример маршрута в Laravel';
-});
-
-// Новый маршрут с использованием get-запроса
-Route::get('/laravel', function () {
-    return 'Изучаем Laravel - мощный PHP фреймворк';
-});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Маршруты, связанные с контроллером MainController
 Route::get('/main', [MainController::class, 'index'])->name('main.index');
 Route::get('/main/test', [MainController::class, 'test']);
 
-Route::group(['namespace' => '\App\Http\Controllers\Admin', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => '\App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware'=>'admin'], function () {
     Route::group(['namespace' => 'Post'], function () {
         Route::get('/post', 'IndexController')->name('admin.post.index');
     });
@@ -58,3 +43,4 @@ Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
 //Route::get('/posts/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
 //Route::patch('/posts/{post}', [PostController::class, 'update'])->name('post.update');
 //Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
+
